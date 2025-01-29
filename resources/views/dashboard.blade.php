@@ -10,15 +10,16 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background-color: #121212;
+            background: linear-gradient(to right, #141e30, #243b55);
             color: #fff;
         }
 
         .header {
             padding: 20px;
             text-align: center;
-            background-color: #1a1a1a;
+            background: rgba(26, 26, 26, 0.9);
             position: relative;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .header h2 {
@@ -29,13 +30,14 @@
 
         .dropdown {
             position: absolute;
-            top: 20px;
+            top: 50%;
             right: 20px;
+            transform: translateY(-50%);
         }
 
         .dropdown-button {
-            background: #1a1a1a;
-            border: 1px solid #333;
+            background: #222;
+            border: 1px solid #444;
             color: #fff;
             font-size: 16px;
             cursor: pointer;
@@ -43,28 +45,27 @@
             border-radius: 8px;
             display: flex;
             align-items: center;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .dropdown-button:hover {
-            background-color: #333;
-            border-color: #444;
+            background: #444;
+            border-color: #555;
         }
 
         .dropdown-button svg {
             width: 16px;
             height: 16px;
             margin-left: 8px;
-            vertical-align: middle;
             transition: transform 0.3s ease;
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #1a1a1a;
+            background: #1a1a1a;
             min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
             z-index: 1;
             top: 100%;
             right: 0;
@@ -78,16 +79,11 @@
             padding: 12px 16px;
             text-decoration: none;
             display: block;
-            border-bottom: 1px solid #333;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown-content a:last-child {
-            border-bottom: none;
+            transition: all 0.3s ease;
         }
 
         .dropdown-content a:hover {
-            background-color: #333;
+            background: #444;
         }
 
         .dropdown:hover .dropdown-content {
@@ -96,46 +92,61 @@
 
         .user-list {
             max-width: 600px;
-            margin: 20px auto;
+            margin: 30px auto;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            padding: 10px;
         }
 
-        .user-list a {
+        .user {
             display: flex;
             align-items: center;
             padding: 15px 20px;
             text-decoration: none;
             color: #fff;
-            border-bottom: 1px solid #333;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            background: linear-gradient(to right, #2c3e50, #4c669f);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .user-list img {
+        .user:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to right, #3a539b, #2b5876);
+        }
+
+        .user img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
             margin-right: 15px;
+            border: 2px solid #fff;
         }
 
-        .user-list div {
+        .user div {
             flex: 1;
         }
 
-        .user-list .name {
+        .user .name {
             font-size: 16px;
             font-weight: bold;
         }
 
-        .user-list .status {
+        .user .status {
             font-size: 14px;
-            color: #a5a5a5;
+            color: #d1d1d1;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .user-list .time {
+        .user .time {
             font-size: 12px;
-            color: #a5a5a5;
+            color: #d1d1d1;
         }
     </style>
 </head>
@@ -164,12 +175,13 @@
 
     <!-- User List -->
     <div class="user-list">
-        @foreach ($users as $user)
-        <a href="{{ route('chat', $user->id) }}">
-            <img src="https://cdn.pixabay.com/photo/2023/04/11/18/35/pikachu-7917962_640.jpg" alt="{{ $user->name }}">
+        @foreach ($users as $index => $user)
+        <a href="{{ route('chat', $user->id) }}" class="user">
+            <!-- Different User DPs -->
+            <img src="https://i.pravatar.cc/50?img={{ $index + 1 }}" alt="{{ $user->name }}">
             <div>
                 <div class="name">{{ $user->name }}</div>
-                <div class="status">...</div>
+                <div class="status">Hey there! I'm using Msg-App.</div>
             </div>
             <div class="time">1h</div>
         </a>
